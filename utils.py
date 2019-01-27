@@ -1,7 +1,7 @@
 from math import floor, log10
 
 
-def humanize_number(value, significant_digits=3, strip_trailing_zeros=True):
+def humanize_time(value, significant_digits=3, strip_trailing_zeros=True):
     """
     Adaption of humanize_numbers_fp that will try to print a given
     number of significant digits, but sometimes more or

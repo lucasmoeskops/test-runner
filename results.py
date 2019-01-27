@@ -1,3 +1,4 @@
+from operator import attrgetter
 from typing import Any, List
 
 from program import Program
@@ -20,6 +21,14 @@ class Results:
 
     def __iter__(self):
         return iter(self.program_results)
+
+    @property
+    def total_execution_time(self):
+        return sum(map(attrgetter('execution_time'), self.program_results))
+
+    @property
+    def average_execution_time(self):
+        return self.total_execution_time / len(self.program_results)
 
     def add_result(self, result: Result):
         self.program_results.append(result)

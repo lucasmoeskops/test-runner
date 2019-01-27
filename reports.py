@@ -1,6 +1,6 @@
 from results import Results
 from termcolor import colored
-from utils import humanize_number
+from utils import humanize_time
 
 
 class Report:
@@ -15,20 +15,11 @@ class Report:
             fp.write(
                 self.format_text('Name: {}\n'.format(result.program.name)))
 
-            if result.execution_time < 0.1:
-                time_format = self.format_excellent
-            elif result.execution_time < 1.0:
-                time_format = self.format_success
-            elif result.execution_time < 10.0:
-                time_format = self.format_text
-            elif result.execution_time < 60:
-                time_format = self.format_warning
-            else:
-                time_format = self.format_error
+            time_format = self._time_format(result.execution_time)
             fp.write(
                 self.format_text(
                     'Execution time: {}\n'.format(
-                        time_format(humanize_number(result.execution_time)))))
+                        time_format(humanize_time(result.execution_time)))))
 
             if result.expected_result:
                 fp.write(
@@ -45,6 +36,16 @@ class Report:
 
             fp.write('\n')
 
+        fp.write(
+            self.format_text(
+                'Total execution time: {}\n'.format(
+                    humanize_time(self.results.total_execution_time))))
+        avg_time = self.results.average_execution_time
+        time_format = self._time_format(avg_time)
+        fp.write(
+            self.format_text(
+                'Average program execution time: {}\n'.format(
+                    time_format(humanize_time(avg_time)))))
         fp.write(self.format_headline('End of report\n'))
 
     def format_headline(self, headline: str) -> str:
@@ -64,6 +65,18 @@ class Report:
 
     def format_excellent(self, text: str) -> str:
         return text + '!'
+
+    def _time_format(self, time: float):
+        if time < 0.1:
+            return self.format_excellent
+        if time < 1.0:
+            return self.format_success
+        if time < 10.0:
+            return self.format_text
+        if time < 60:
+            return self.format_warning
+        else:
+            return self.format_error
 
 
 class TerminalReport(Report):
