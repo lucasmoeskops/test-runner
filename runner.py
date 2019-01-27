@@ -8,7 +8,9 @@ from results import Results, Result
 
 
 class Runner:
-    def __init__(self, programs: Iterable[Program], aspects: Optional[Iterable[Aspect]]=None):
+    def __init__(self,
+                 programs: Iterable[Program],
+                 aspects: Optional[Iterable[Aspect]]=None):
         self.aspects: List[Aspect] = list(aspects or ())
         self.programs: List[Program] = list(programs)
 

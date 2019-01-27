@@ -4,7 +4,10 @@ from program import Program
 
 
 class Result:
-    def __init__(self, program: Program, return_value: Any, execution_time: float=None):
+    def __init__(self,
+                 program: Program,
+                 return_value: Any,
+                 execution_time: float=None):
         self.program: Program = program
         self.execution_time: float = execution_time
         self.return_value: Any = return_value

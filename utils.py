@@ -3,7 +3,8 @@ from math import floor, log10
 
 def humanize_number(value, significant_digits=3, strip_trailing_zeros=True):
     """
-    Adaption of humanize_numbers_fp that will try to print a given number of significant digits, but sometimes more or
+    Adaption of humanize_numbers_fp that will try to print a given
+    number of significant digits, but sometimes more or
     less for easier reading.
 
     Source: gmjonker, https://stackoverflow.com/a/50269175
@@ -27,8 +28,11 @@ def humanize_number(value, significant_digits=3, strip_trailing_zeros=True):
         value = abs(value)
     if value == 0:
         decimal_places = max(0, significant_digits - 1)
-    # elif .001 <= value < 1:  # don't humanize these, because 3.0m can be interpreted as 3 million
-    #     decimal_places = max(0, significant_digits - int(floor(log10(value))) - 1)
+    # elif .001 <= value < 1:
+    #  don't humanize these, because 3.0m can be interpreted as
+    #  3 million
+    #     decimal_places = max(
+    #         0, significant_digits - int(floor(log10(value))) - 1)
     else:
         p = next((x for x in powers if value >= x), 10 ** -9)
         i = powers.index(p)

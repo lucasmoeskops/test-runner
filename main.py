@@ -17,7 +17,8 @@ def execute_manifest(fp):
             return None
 
     manifest = json.load(fp)
-    programs = filter(None, map(try_read_program_manifest, manifest['programs']))
+    programs = filter(
+        None, map(try_read_program_manifest, manifest['programs']))
     runner = Runner(programs)
     report = TerminalReport(runner.run())
     report.write(stdout)
